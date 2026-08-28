@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16070d">
+<title>Shubham ♥ Bayko</title>
+<style>
+:root{
+  --bg:#0d0509; --panel:rgba(255,255,255,.07); --text:#fff7fa;
+  --muted:#d9bfc8; --accent:#ff6f9d; --accent2:#ffd1df;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% 0,#3a1020 0,#16070d 35%,#080307 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,105,150,.12),transparent 30%),radial-gradient(circle at 80% 60%,rgba(255,180,205,.08),transparent 30%);z-index:-1}
+button{font:inherit}
+#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.heart{position:absolute;bottom:-40px;animation:float linear forwards;opacity:.75}
+@keyframes float{to{transform:translateY(-115vh) translateX(var(--drift)) rotate(25deg);opacity:0}}
+.screen{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 18px}
+.hero{min-height:100svh;text-align:center;position:relative;overflow:hidden}
+.hero-inner{max-width:850px;margin:auto;position:relative;z-index:2}
+.kicker{letter-spacing:.25em;text-transform:uppercase;color:var(--accent2);font-size:.72rem}
+h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(3.3rem,13vw,8rem);line-height:.88;margin:18px 0}
+.gradient{background:linear-gradient(120deg,#fff,#ffc4d8,#ff6f9d,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{font-size:clamp(1rem,3vw,1.3rem);color:var(--muted);max-width:650px;margin:0 auto 30px;line-height:1.7}
+.btn{border:1px solid rgba(255,255,255,.2);background:linear-gradient(135deg,#ff6f9d,#d83d73);color:white;padding:14px 24px;border-radius:999px;cursor:pointer;box-shadow:0 10px 35px rgba(255,70,130,.22);transition:.25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 15px 45px rgba(255,70,130,.35)}
+.card{background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:28px;backdrop-filter:blur(16px);box-shadow:0 20px 70px rgba(0,0,0,.3)}
+section{padding:90px 18px;max-width:1050px;margin:auto}
+.section-title{text-align:center;font-family:Georgia,serif;font-size:clamp(2rem,6vw,4rem);font-weight:500;margin:0 0 15px}
+.section-lead{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 45px;line-height:1.7}
+.dm{max-width:520px;margin:auto}
+.dm-head{display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:16px}
+.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #ff9fbc}
+.msg{max-width:80%;padding:12px 15px;border-radius:19px;margin:14px 0;line-height:1.45}
+.msg.left{background:#272027}.msg.right{background:#b63d69;margin-left:auto}
+.date{text-align:center;color:#a98d96;font-size:.75rem;margin:20px}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.timeline .card{text-align:center}
+.num{font-size:2.3rem;color:var(--accent);font-family:Georgia,serif}
+.distance{display:flex;align-items:center;gap:15px;margin:30px 0}
+.city{flex:0 0 auto;text-align:center}
+.city b{display:block;font-size:1.1rem}.city small{color:var(--muted)}
+.line{height:2px;background:linear-gradient(90deg,transparent,#ff6f9d,transparent);flex:1;position:relative}
+.line span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:1.5rem;background:#16070d;padding:8px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:700px;margin:auto}
+.choice{min-height:120px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;cursor:pointer;padding:18px;text-align:left;transition:.25s}
+.choice:hover{transform:translateY(-4px);border-color:#ff7ca7;background:rgba(255,111,157,.1)}
+.choice b{display:block;font-size:1.15rem;margin-bottom:7px}.choice span{color:var(--muted);font-size:.9rem}
+#choiceResult{margin:24px auto 0;max-width:700px;text-align:center;display:none}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.photo{height:360px;border-radius:24px;overflow:hidden;position:relative;cursor:pointer}
+.photo:nth-child(2),.photo:nth-child(5){height:440px}
+.photo img{width:100%;height:100%;object-fit:cover;transition:.5s}.photo:hover img{transform:scale(1.06)}
+.photo:after{content:"♥";position:absolute;right:14px;bottom:12px;font-size:1.4rem;color:white;text-shadow:0 2px 10px #000}
+.envelopes{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.envelope{cursor:pointer;text-align:center;padding:28px 15px;min-height:150px}
+.envelope .icon{font-size:2.5rem}.envelope p{color:var(--muted)}
+.reveal{margin-top:20px;text-align:center;display:none}
+.quiz{max-width:650px;margin:auto}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.answer{background:#fff;color:#1b0a10;border:0;border-radius:14px;padding:14px;cursor:pointer}
+.answer:hover{background:#ffd5e2}
+.promise{text-align:center;max-width:750px;margin:auto}
+.promise .big{font-family:Georgia,serif;font-size:clamp(2.1rem,6vw,4.5rem);line-height:1.05}
+.final{min-height:100svh;text-align:center;display:flex;align-items:center;justify-content:center;padding:40px 18px}
+.final-inner{max-width:800px}.final-heart{font-size:5rem;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+small.muted{color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}
+.modal.show{display:flex}.modal-box{max-width:720px;width:100%;position:relative}.modal-box img{width:100%;max-height:80vh;object-fit:contain;border-radius:22px}.close{position:absolute;right:10px;top:10px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:white;font-size:1.5rem;cursor:pointer;z-index:2}
+.fade{animation:fade .9s both}@keyframes fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hidden{display:none}
+footer{text-align:center;padding:40px 18px;color:#987d87;font-size:.8rem}
+@media(max-width:720px){
+  section{padding:70px 15px}.timeline,.gallery,.envelopes{grid-template-columns:1fr}
+  .photo,.photo:nth-child(2),.photo:nth-child(5){height:430px}.choice-grid,.answers{grid-template-columns:1fr}
+  .distance{gap:8px}.city b{font-size:.95rem}.city small{font-size:.7rem}
+}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+
+<header class="screen hero">
+  <div class="hero-inner fade">
+    <div class="kicker">A little corner of the internet made for</div>
+    <h1><span class="gradient">Bayko</span><br>♥</h1>
+    <p class="subtitle">Diya, this isn't just a website. It's a tiny universe made from memories, distance, smiles, and one very important date.</p>
+    <button class="btn" onclick="startLove()">Enter our story ♥</button>
+    <p style="margin-top:18px;color:#a98d96;font-size:.78rem">27 MAY 2025 · SHUBHAM × DIYA</p>
+  </div>
+</header>
+
+<main id="story" class="hidden">
+<section>
+  <h2 class="section-title">It started with a message…</h2>
+  <p class="section-lead">Before the distance, before all these memories — there was an Instagram conversation that changed everything.</p>
+  <div class="card dm">
+    <div class="dm-head"><img class="avatar" src="images/IMG_20250813_150920_409.jpg"><div><b>Bayko ♥</b><br><small class="muted">Instagram</small></div></div>
+    <div class="date">27 May 2025</div>
+    <div class="msg left">What are you trying to say? 👀</div>
+    <div class="msg right">I actually wanted to tell you something… ❤️</div>
+    <div class="msg right">I like you. A lot. And I don't want this to be just a conversation.</div>
+    <div class="msg left">🥹❤️</div>
+    <button class="btn" style="width:100%;margin-top:10px" onclick="reveal('proposal')">Tap to reveal what happened</button>
+    <div id="proposal" class="reveal">And on <b>27 May 2025</b>, Shubham proposed to Bayko. <br><br>One message became a story. And the story is still being written. 💗</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Two cities. One heart.</h2>
+  <p class="section-lead">Shegaon to Nagpur may be a distance on a map. To us, it's just another reason to look forward to the next call, next smile, and next meeting.</p>
+  <div class="card">
+    <div class="distance">
+      <div class="city">📍<b>Shegaon</b><small>Shubham</small></div>
+      <div class="line"><span>♥</span></div>
+      <div class="city">📍<b>Nagpur</b><small>Diya / Bayko</small></div>
+    </div>
+    <div style="text-align:center;color:var(--muted)">Distance: temporary. <b style="color:white">Us: permanent.</b></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Bayko, choose one 👀</h2>
+  <p class="section-lead">There are no wrong answers. Well… maybe one. 😌</p>
+  <div class="choice-grid">
+    <button class="choice" onclick="choice('miss')"><b>🥺 I miss you</b><span>Give me something soft.</span></button>
+    <button class="choice" onclick="choice('laugh')"><b>😂 Make me laugh</b><span>I need my Shubham dose.</span></button>
+    <button class="choice" onclick="choice('love')"><b>❤️ I love you</b><span>Open the romantic one.</span></button>
+    <button class="choice" onclick="choice('surprise')"><b>🎁 Surprise me</b><span>Okay… let's see what you get.</span></button>
+  </div>
+  <div id="choiceResult" class="card"></div>
+</section>
+
+<section>
+  <h2 class="section-title">Little pieces of you</h2>
+  <p class="section-lead">Every photo has a different version of the person I fell for. Tap a photo to make it bigger.</p>
+  <div class="gallery">
+    <div class="photo" onclick="openPhoto(this)"><img src="images/IMG_20250807_230358_294.jpg" alt="A memory of Diya"></div>
+    <div class="photo" onclick="openPhoto(this)"><img src="images/IMG_20250813_150920_409.jpg" alt="A memory of Diya"></div>
+    <div class="photo" onclick="openPhoto(this)"><img src="images/IMG_20250905_103700_482.jpg" alt="A memory of Diya"></div>
+    <div class="photo" onclick="openPhoto(this)"><img src="images/Snapchat-1750095788.jpg" alt="A memory of Diya"></div>
+    <div class="photo" onclick="openPhoto(this)"><img src="images/Snapchat-1717628569.jpg" alt="A memory of Diya"></div>
+    <div class="photo" onclick="openPhoto(this)"><img src="images/IMG_20250813_150929_448.jpg" alt="A memory of Diya"></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Open when… 💌</h2>
+  <p class="section-lead">Three little messages, saved for the moments when I can't be there beside you.</p>
+  <div class="envelopes">
+    <div class="card envelope" onclick="openLetter(1)"><div class="icon">🥺</div><b>When you miss me</b><p>Open this.</p></div>
+    <div class="card envelope" onclick="openLetter(2)"><div class="icon">🌙</div><b>Before you sleep</b><p>One last thought.</p></div>
+    <div class="card envelope" onclick="openLetter(3)"><div class="icon">❤️</div><b>When you need love</b><p>This one's from my heart.</p></div>
+  </div>
+  <div id="letter" class="card reveal"></div>
+</section>
+
+<section>
+  <h2 class="section-title">How well do you know us? 🎮</h2>
+  <p class="section-lead">One tiny question. Don't overthink it, Bayko. 😏</p>
+  <div class="card quiz">
+    <b>Where did our story officially change everything?</b>
+    <div class="answers">
+      <button class="answer" onclick="quiz(false)">Shegaon 📍</button>
+      <button class="answer" onclick="quiz(false)">Nagpur 📍</button>
+      <button class="answer" onclick="quiz(true)">Instagram + 27 May 2025 ❤️</button>
+      <button class="answer" onclick="quiz(false)">Somewhere in the clouds ☁️</button>
+    </div>
+    <div id="quizResult" class="reveal"></div>
+  </div>
+</section>
+
+<section>
+  <div class="card promise">
+    <div class="kicker">A promise from Shubham</div>
+    <div class="big">“I can't promise there will never be distance. I can promise you will never have to face it alone.”</div>
+    <p class="section-lead" style="margin-bottom:0">One day, Shegaon and Nagpur will just be two places we came from — not two places keeping us apart.</p>
+  </div>
+</section>
+</main>
+
+<section class="final">
+  <div class="final-inner fade">
+    <div class="final-heart">❤️</div>
+    <div class="kicker">For my Bayko</div>
+    <h2 class="section-title" style="margin-top:12px">27 May 2025 was only Chapter One.</h2>
+    <p class="section-lead">Thank you for becoming my favorite notification, my favorite person, and the person I want to keep choosing — across every kilometer.</p>
+    <button class="btn" onclick="finalSurprise()">One last surprise ♥</button>
+    <div id="finalMessage" class="reveal card" style="margin-top:24px">
+      <div style="font-family:Georgia,serif;font-size:1.8rem">Shubham ♥ Bayko</div>
+      <p style="color:var(--muted);line-height:1.8">If I could send one thing through the distance tonight, it wouldn't be a message.</p>
+      <p style="font-size:1.2rem">It would be a hug that says:<br><b>“I'm here. I'm yours. And I'm not going anywhere.”</b></p>
+      <p>— Shubham ❤️</p>
+    </div>
+  </div>
+</section>
+
+<footer>Made with too much love by Shubham, for Bayko. ♥</footer>
+
+<div id="modal" class="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <img id="modalImg" src="" alt="Photo">
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+function startLove(){ $('story').classList.remove('hidden'); document.querySelector('#story').scrollIntoView({behavior:'smooth'}); burstHearts(18); }
+function reveal(id){$(id).style.display='block'; burstHearts(10)}
+function choice(type){
+ const data={
+ miss:["🥺","If I could teleport right now, Bayko, I wouldn't think twice. Until then, remember: every “I miss you” from you has a matching one from me.","Come here, idiot. ♥"],
+ laugh:["😂","Breaking news: Shubham has officially been prescribed one Bayko smile per day. Side effects include missing you even more.","Your smile is my favorite notification."],
+ love:["❤️","You don't need a special reason to hear this: I love you. On easy days, hard days, busy days, and all the days in between.","Always you. ♥"],
+ surprise:["🎁","Plot twist: the surprise was you. You clicked this, and now I'm smiling like an idiot.","Got you, Bayko. 😌❤️"]
+ };
+ const [icon,msg,end]=data[type]; const box=$('choiceResult'); box.innerHTML=`<div style="font-size:2.3rem">${icon}</div><p>${msg}</p><b>${end}</b>`; box.style.display='block'; box.classList.add('fade');
+}
+function openPhoto(el){$('modalImg').src=el.querySelector('img').src;$('modal').classList.add('show')}
+function closeModal(e){if(!e||e.target===$('modal')||e.target.classList.contains('close'))$('modal').classList.remove('show')}
+function openLetter(n){
+ const msgs=[
+ "If you're missing me right now: close your eyes for a second and imagine I'm sitting beside you. No screen. No distance. Just us. And yes, I'm still stealing your attention. ❤️",
+ "Good night, Bayko. I hope you sleep knowing there is someone in Shegaon thinking about you in Nagpur and smiling because you exist. Sleep peacefully. 🌙",
+ "Whenever you need to feel loved, remember this: you don't have to earn it. You already have it. From me. Completely. ❤️"
+ ];
+ $('letter').innerHTML=`<div style="font-size:2rem">💌</div><p>${msgs[n-1]}</p><b>— Shubham</b>`;$('letter').style.display='block';burstHearts(8)
+}
+function quiz(ok){$('quizResult').innerHTML=ok?"Correct. Obviously. 😌❤️<br><br><b>10/10 — Bayko knows the story.</b>":"Nice try 😏<br><br>But you know the real answer."; $('quizResult').style.display='block';if(ok)burstHearts(15)}
+function finalSurprise(){ $('finalMessage').style.display='block'; burstHearts(35)}
+function burstHearts(count=8){
+ for(let i=0;i<count;i++){const h=document.createElement('div');h.className='heart';h.textContent=['♥','♡','❤','💗'][Math.floor(Math.random()*4)];h.style.left=Math.random()*100+'%';h.style.fontSize=(14+Math.random()*24)+'px';h.style.animationDuration=(4+Math.random()*5)+'s';h.style.setProperty('--drift',(Math.random()*180-90)+'px');$('hearts').appendChild(h);setTimeout(()=>h.remove(),10000)}
+}
+setInterval(()=>burstHearts(1),1800);
+</script>
+</body>
+</html>
